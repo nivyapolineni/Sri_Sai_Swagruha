@@ -161,19 +161,33 @@ th, td {
     gap: 40px;
 }
 
+.form-section {
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
 .form-section input,
 .form-section textarea {
     width: 100%;
-    padding: 10px;
-    margin: 8px 0;
+    padding: 12px;
+    margin: 10px 0;
     border-radius: 5px;
     border: 1px solid #ccc;
+    box-sizing: border-box;
 }
 
 .form-section div {
-    margin-bottom: 15px;
+    margin-bottom: 25px;
     display: flex;
     flex-direction: column;
+}
+
+.form-section p {
+    margin-bottom: 20px;
 }
 
 .form-section label {

@@ -1,106 +1,379 @@
-{% extends "layout.html" %}
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sri Sai Swagruha Foods</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='logo.png') }}">
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "primary":                "#570000",
+            "primary-container":      "#800000",
+            "on-primary":             "#ffffff",
+            "secondary":              "#705d00",
+            "secondary-container":    "#fdd835",
+            "on-secondary-container": "#705e00",
+            "surface":                "#fbf9f8",
+            "surface-low":            "#f5f3f3",
+            "on-surface":             "#1b1c1c",
+            "on-surface-variant":     "#5a413d",
+            "outline":                "#8e706c",
+            "outline-variant":        "#e2bfb9",
+          },
+          fontFamily: {
+            "serif": ["Noto Serif", "serif"],
+            "sans":  ["Plus Jakarta Sans", "sans-serif"],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
+    }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    h1, h2, h3 { font-family: 'Noto Serif', serif; }
+    .glass-nav { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+    .collection-link { transition: transform 0.2s, color 0.2s; }
+    .collection-link:hover { transform: translateX(4px); }
+    .collection-link.active { color: #570000 !important; font-weight: 700; border-bottom: 2px solid #fdd835; }
+  </style>
+</head>
 
-<style>
+<body class="bg-[#fbf9f8] text-[#1b1c1c]">
 
-/* ===== Traditional Yellow Background ===== */
-body {
-    background: #fdd835;   /* Traditional Haldi Yellow */
-    margin: 0;
-}
+<!-- ── Fixed Header ── -->
+<header class="fixed top-0 w-full z-50 bg-[#fbf9f8]/80 glass-nav shadow-sm">
+  <div class="flex justify-between items-center px-6 md:px-10 py-4 max-w-7xl mx-auto">
 
-/* Decorative Muggu Border Effect */
-.muggu-border {
-    border: 6px solid white;
-    margin: 30px;
-    padding: 60px 20px;
-    border-radius: 20px;
-    position: relative;
-}
-
-/* Small dot pattern (muggu feel) */
-.muggu-border::before {
-    content: "";
-    position: absolute;
-    inset: 10px;
-    border-radius: 15px;
-    background-image: radial-gradient(white 2px, transparent 2px);
-    background-size: 30px 30px;
-    opacity: 0.2;
-    z-index: 0;
-}
-
-/* Content box */
-.hero-section {
-    position: relative;
-    z-index: 1;
-    background: rgba(255,255,255,0.95);
-    padding: 50px 30px;
-    border-radius: 15px;
-    text-align: center;
-    max-width: 850px;
-    margin: auto;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-}
-
-/* Banner */
-.scroll-banner {
-    background-color: #800000;
-    color: white;
-    padding: 12px;
-    text-align: center;
-    font-weight: bold;
-    letter-spacing: 1px;
-}
-
-/* Heading */
-.hero-section h1 {
-    font-size: 38px;
-    color: #800000;
-    margin-bottom: 15px;
-}
-
-/* Subtitle */
-.hero-section p {
-    font-size: 18px;
-    color: #444;
-    margin-bottom: 30px;
-}
-
-/* Button */
-.btn {
-    background-color: #800000;
-    color: white;
-    padding: 14px 28px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-size: 18px;
-    font-weight: bold;
-    transition: 0.3s ease;
-}
-
-.btn:hover {
-    background-color: #5a0000;
-}
-
-</style>
-
-<div class="scroll-banner">
-    🔥 ALL ITEMS ₹399 PER KG | Pure | Homemade | Traditional
-</div>
-
-<div class="muggu-border">
-    <div class="hero-section">
-        <!-- ✅ LOGO ADDED HERE -->
-        <img src="{{ url_for('static', filename='logo.png') }}" class="hero-logo">
-
-        <h1>SRI SAI SWAGRUHA FOODS</h1>
-        <p>
-            Authentic Telugu Traditional Sweets & Snacks  
-            Prepared with Love, Purity & Tradition.
-        </p>
-        <a href="/menu" class="btn">Shop Now</a>
+    <div class="flex items-center gap-8">
+      <a href="/" class="text-xl font-serif font-bold text-[#800000] tracking-tight">Sri Sai Swagruha Foods</a>
+      <nav class="hidden md:flex gap-6 items-center">
+        <a href="/" class="text-[#800000] font-bold border-b-2 border-[#fdd835] pb-0.5 text-xs uppercase tracking-widest">Home</a>
+        <a href="/cart" class="text-[#5a413d] hover:text-[#800000] font-medium text-xs uppercase tracking-widest transition-colors">Cart</a>
+      </nav>
     </div>
+
+    <div class="flex items-center gap-2">
+      <a href="/cart" class="p-2 text-[#5a413d] hover:text-[#800000] transition-colors">
+        <span class="material-symbols-outlined">shopping_bag</span>
+      </a>
+      <button class="md:hidden p-2 text-[#5a413d]"
+              onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-[#fbf9f8]/96 px-6 pb-4 border-t border-[#e2bfb9]/30">
+    <div class="flex flex-col gap-1 pt-2">
+      <a href="/" class="text-[#800000] font-bold text-sm uppercase tracking-widest py-2">Home</a>
+      <a href="/cart" class="text-[#5a413d] text-sm uppercase tracking-widest py-2">Cart</a>
+    </div>
+  </div>
+</header>
+
+<main class="pt-20 pb-16 max-w-7xl mx-auto px-4 md:px-8">
+
+  <!-- ── Announcement Banner ── -->
+  <div class="bg-[#800000] text-white text-center py-2.5 text-xs font-semibold tracking-widest uppercase -mx-4 md:-mx-8 mb-12">
+    🔥 All Items ₹399 / Kg &nbsp;&nbsp;|&nbsp;&nbsp; Pure &nbsp;&nbsp;|&nbsp;&nbsp; Homemade &nbsp;&nbsp;|&nbsp;&nbsp; Traditional
+  </div>
+
+  <!-- ── Hero Section ── -->
+  <section class="mb-16 flex flex-col md:flex-row items-center gap-10 md:gap-16">
+    <div class="md:w-1/2">
+      <span class="text-[#705d00] text-xs uppercase tracking-[0.3em] font-semibold block mb-4">Authentic Telugu Cuisine</span>
+      <h1 class="text-4xl md:text-6xl font-serif italic text-[#570000] leading-tight mb-6">
+        The Art of<br>Authentic Tastes
+      </h1>
+      <p class="text-[#5a413d] max-w-md text-base leading-relaxed mb-8">
+        Homemade Telugu sweets &amp; snacks prepared with love, purity, and generations of tradition. Every bite tells a story.
+      </p>
+    </div>
+
+    <!-- Logo (replaces hero sweets image) -->
+    <div class="md:w-1/2 flex justify-center items-center">
+      <div class="relative">
+        <div class="absolute inset-0 bg-[#fdd835]/25 rounded-full blur-3xl scale-125"></div>
+        <img src="{{ url_for('static', filename='logo.png') }}"
+             alt="Sri Sai Swagruha Foods Logo"
+             class="relative w-56 md:w-72 lg:w-80 object-contain drop-shadow-2xl">
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Compute tag counts ── -->
+  {% set sweet_count  = namespace(value=0) %}
+  {% set snack_count  = namespace(value=0) %}
+  {% set best_count   = namespace(value=0) %}
+  {% set pickle_count = namespace(value=0) %}
+  {% for _, d in products.items() %}
+    {% if 'sweet'      in d.tags %}{% set sweet_count.value  = sweet_count.value  + 1 %}{% endif %}
+    {% if 'snack'      in d.tags %}{% set snack_count.value  = snack_count.value  + 1 %}{% endif %}
+    {% if 'bestseller' in d.tags %}{% set best_count.value   = best_count.value   + 1 %}{% endif %}
+    {% if 'pickle'     in d.tags %}{% set pickle_count.value = pickle_count.value + 1 %}{% endif %}
+  {% endfor %}
+
+  <!-- ── Sidebar + Product Grid ── -->
+  <div class="flex flex-col md:flex-row gap-10 md:gap-14">
+
+    <!-- Sidebar -->
+    <aside class="w-full md:w-52 flex-shrink-0 space-y-10">
+
+      <div>
+        <h3 class="font-serif text-lg text-[#570000] font-bold mb-5">Collections</h3>
+        <ul class="space-y-4">
+          <li>
+            <a href="#" class="collection-link active flex justify-between items-center text-sm py-0.5"
+               data-filter="all" onclick="filterProducts('all', this); return false;">
+              <span>All Items</span>
+              <span class="text-xs text-[#8e706c] opacity-60">{{ products|length }}</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="collection-link text-[#5a413d] flex justify-between items-center text-sm py-0.5 hover:text-[#570000]"
+               data-filter="sweet" onclick="filterProducts('sweet', this); return false;">
+              <span>Sweets</span>
+              <span class="text-xs text-[#8e706c] opacity-60">{{ sweet_count.value }}</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="collection-link text-[#5a413d] flex justify-between items-center text-sm py-0.5 hover:text-[#570000]"
+               data-filter="snack" onclick="filterProducts('snack', this); return false;">
+              <span>Savory &amp; Snacks</span>
+              <span class="text-xs text-[#8e706c] opacity-60">{{ snack_count.value }}</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="collection-link text-[#5a413d] flex justify-between items-center text-sm py-0.5 hover:text-[#570000]"
+               data-filter="bestseller" onclick="filterProducts('bestseller', this); return false;">
+              <span>Bestsellers</span>
+              <span class="text-xs text-[#8e706c] opacity-60">{{ best_count.value }}</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="collection-link text-[#5a413d] flex justify-between items-center text-sm py-0.5 hover:text-[#570000]"
+               data-filter="pickle" onclick="filterProducts('pickle', this); return false;">
+              <span>Pickles</span>
+              <span class="text-xs text-[#8e706c] opacity-60">{{ pickle_count.value }}</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="bg-[#f5f3f3] rounded-xl p-5">
+        <p class="text-[10px] text-[#5a413d] font-semibold uppercase tracking-widest mb-2">Enquiries</p>
+        <a href="https://wa.me/918247336418" target="_blank"
+           class="text-[#570000] font-bold text-sm hover:underline">
+          📞 8247336418
+        </a>
+        <p class="text-xs text-[#8e706c] mt-1">WhatsApp / Call</p>
+      </div>
+    </aside>
+
+    <!-- Product Grid -->
+    <div class="flex-grow">
+
+      <div class="flex justify-between items-center mb-8 pb-5 border-b border-[#e2bfb9]/20">
+        <span id="product-count" class="text-sm text-[#5a413d] italic font-serif">
+          {{ products|length }} artisanal creations
+        </span>
+        <div class="flex items-center gap-3">
+          <span class="text-xs uppercase tracking-widest text-[#8e706c]">Sort by</span>
+          <select id="sort-select" class="bg-transparent border-none text-sm font-semibold text-[#570000] focus:ring-0 cursor-pointer outline-none" onchange="sortProducts(this.value)">
+            <option value="default">Best Selling</option>
+            <option value="price-asc">Price: Low to High</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
+
+        {% for name, data in products.items() %}
+        <div class="group product-card" data-tags="{{ data.tags | join(' ') }}">
+
+          <!-- Image -->
+          <div class="relative aspect-[4/5] bg-[#f5f3f3] mb-5 overflow-hidden rounded-xl">
+
+            <!-- Tag chips -->
+            <div class="absolute top-3 left-3 z-10 flex flex-wrap gap-1.5">
+              {% if 'bestseller' in data.tags %}
+              <span class="bg-[#fdd835]/90 text-[#705e00] text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full backdrop-blur-sm">
+                Bestseller
+              </span>
+              {% endif %}
+              {% if 'sweet' in data.tags %}
+              <span class="bg-white/80 text-[#570000] text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full backdrop-blur-sm">
+                Sweet
+              </span>
+              {% elif 'snack' in data.tags %}
+              <span class="bg-white/80 text-[#5a413d] text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full backdrop-blur-sm">
+                Savory
+              </span>
+              {% elif 'pickle' in data.tags %}
+              <span class="bg-white/80 text-[#2d5a27] text-[10px] font-semibold uppercase tracking-widest px-2.5 py-1 rounded-full backdrop-blur-sm">
+                Pickle
+              </span>
+              {% endif %}
+            </div>
+
+            <img src="{{ url_for('static', filename=data.image) }}"
+                 alt="{{ name }}"
+                 class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+
+            <!-- Hover overlay -->
+            <div class="absolute inset-0 bg-[#570000]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300
+                        flex items-center justify-center">
+              <button type="button" class="order-now-btn bg-white text-[#570000] px-5 py-2.5 rounded-full text-xs font-semibold uppercase tracking-widest
+                        transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 shadow-xl">
+                Order Now
+              </button>
+            </div>
+          </div>
+
+          <!-- Product info -->
+          <div class="flex justify-between items-start mb-1.5">
+            <h4 class="font-serif text-lg text-[#570000] group-hover:text-[#800000] transition-colors leading-snug pr-2">
+              {{ name }}
+            </h4>
+            <span class="font-bold text-[#1b1c1c] text-sm whitespace-nowrap">₹{{ data.price }}/kg</span>
+          </div>
+          <p class="text-[#5a413d] text-xs mb-5 line-clamp-1 leading-relaxed">
+            {% if ' | ' in data.desc %}{{ data.desc.split(' | ')[1] }}{% else %}{{ data.desc }}{% endif %}
+          </p>
+
+          <form class="flex gap-2 add-form">
+            <input type="hidden" name="item" value="{{ name }}">
+            <input type="number" name="qty" value="1" min="1"
+                   class="w-14 border border-[#e2bfb9]/50 rounded-lg px-2 text-sm text-center bg-white
+                          focus:ring-1 focus:ring-[#fdd835] focus:border-[#fdd835] outline-none">
+            <button type="submit"
+                    class="flex-1 py-3 bg-[#570000] text-white rounded-xl text-xs font-semibold uppercase tracking-[0.15em]
+                           hover:bg-[#800000] transition-all active:scale-95 hover:shadow-lg hover:shadow-[#570000]/20">
+              Add to Bag
+            </button>
+          </form>
+        </div>
+        {% endfor %}
+
+      </div>
+
+      <!-- Empty state -->
+      <div id="no-products" class="hidden text-center py-20 text-[#5a413d]">
+        <span class="material-symbols-outlined text-5xl mb-4 block opacity-40">search_off</span>
+        <p class="font-serif text-xl">No items in this collection</p>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<!-- ── Minimal Footer ── -->
+<footer class="bg-[#f5f3f3] py-6 text-center border-t border-[#e2bfb9]/20">
+  <p class="text-[#5a413d] text-sm">
+    <span class="font-serif font-bold text-[#570000]">Sri Sai Swagruha Foods</span>
+    &nbsp;|&nbsp;
+    📞 <a href="https://wa.me/918247336418" class="hover:underline">8247336418</a>
+    &nbsp;|&nbsp;
+    <span class="text-xs text-[#8e706c]">Authentic Telugu Sweets &amp; Snacks</span>
+  </p>
+</footer>
+
+<!-- Mobile Cart FAB -->
+<a href="/cart"
+   class="fixed bottom-6 right-6 md:hidden bg-[#fdd835] text-[#705e00] w-14 h-14 rounded-full
+          shadow-2xl flex items-center justify-center z-50 hover:opacity-90 transition-opacity">
+  <span class="material-symbols-outlined">shopping_cart</span>
+</a>
+
+<script>
+  function sortProducts(value) {
+    const grid = document.getElementById('product-grid');
+    const cards = Array.from(grid.querySelectorAll('.product-card'));
+    if (value === 'price-asc') {
+      cards.sort((a, b) => {
+        const priceA = parseFloat(a.querySelector('span.whitespace-nowrap').textContent.replace(/[^\d.]/g, ''));
+        const priceB = parseFloat(b.querySelector('span.whitespace-nowrap').textContent.replace(/[^\d.]/g, ''));
+        return priceA - priceB;
+      });
+    } else {
+      cards.sort((a, b) => a.dataset.originalIndex - b.dataset.originalIndex);
+    }
+    cards.forEach(card => grid.appendChild(card));
+  }
+
+  // Store original order
+  document.querySelectorAll('.product-card').forEach((card, i) => {
+    card.dataset.originalIndex = i;
+  });
+
+  function filterProducts(filter, link) {
+    const cards = document.querySelectorAll('.product-card');
+    let count = 0;
+
+    cards.forEach(card => {
+      const tags = (card.dataset.tags || '').split(' ');
+      const show = filter === 'all' || tags.includes(filter);
+      card.style.display = show ? '' : 'none';
+      if (show) count++;
+    });
+
+    document.getElementById('product-count').textContent = count + ' artisanal creations';
+    document.getElementById('no-products').classList.toggle('hidden', count > 0);
+
+    document.querySelectorAll('.collection-link').forEach(l => {
+      l.classList.remove('active');
+    });
+    if (link) link.classList.add('active');
+  }
+</script>
+
+<div id="toast"
+     class="fixed bottom-24 left-1/2 -translate-x-1/2 bg-[#570000] text-white text-sm font-semibold
+            px-5 py-3 rounded-full shadow-lg opacity-0 pointer-events-none transition-opacity duration-300 z-50">
+  Added to bag!
 </div>
 
-{% endblock %}
+<script>
+  document.querySelectorAll('.add-form').forEach(form => {
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const data = new FormData(form);
+      await fetch('/add', {
+        method: 'POST',
+        headers: { 'X-Requested-With': 'XMLHttpRequest' },
+        body: data
+      });
+      const toast = document.getElementById('toast');
+      toast.style.opacity = '1';
+      setTimeout(() => { toast.style.opacity = '0'; }, 1800);
+    });
+
+    const orderBtn = form.closest('.product-card').querySelector('.order-now-btn');
+    if (orderBtn) {
+      orderBtn.addEventListener('click', async function() {
+        const data = new FormData(form);
+        await fetch('/add', {
+          method: 'POST',
+          headers: { 'X-Requested-With': 'XMLHttpRequest' },
+          body: data
+        });
+        window.location.href = '/cart';
+      });
+    }
+  });
+</script>
+
+</body>
+</html>

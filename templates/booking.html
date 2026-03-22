@@ -1,58 +1,214 @@
-{% extends "layout.html" %}
-{% block content %}
-<div class="form-section">
-    <h2 style="color:#800000;">Booking Details</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Booking | Sri Sai Swagruha Foods</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "primary":                  "#570000",
+            "primary-container":        "#800000",
+            "on-primary":               "#ffffff",
+            "secondary":                "#705d00",
+            "secondary-container":      "#fdd835",
+            "on-secondary-container":   "#705e00",
+            "surface":                  "#fbf9f8",
+            "surface-container-low":    "#f5f3f3",
+            "surface-container-lowest": "#ffffff",
+            "surface-variant":          "#e4e2e2",
+            "on-surface":               "#1b1c1c",
+            "on-surface-variant":       "#5a413d",
+            "outline":                  "#8e706c",
+            "outline-variant":          "#e2bfb9",
+            "error":                    "#ba1a1a",
+          },
+          fontFamily: {
+            "serif": ["Noto Serif", "serif"],
+            "sans":  ["Plus Jakarta Sans", "sans-serif"],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
+    }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fbf9f8; }
+    .glass-nav { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+  </style>
+</head>
+<body class="text-[#1b1c1c]">
 
-    <p style="background:#fff3cd; padding:12px; border-radius:8px; font-size:24px; border-left:5px solid #800000;">
-        <b class="highlight-text" style="color:#800000;">Important:</b>
-        Your order will be <b style="color:#800000;">confirmed ONLY after sending 20% advance payment slip</b>
-        to WhatsApp number:
+<!-- ── Fixed Header ── -->
+<header class="fixed top-0 w-full z-50 bg-[#fbf9f8]/80 glass-nav shadow-sm">
+  <div class="flex justify-between items-center px-6 md:px-10 py-4 max-w-7xl mx-auto">
+    <div class="flex items-center gap-8">
+      <a href="/" class="text-xl font-serif font-bold text-[#800000] tracking-tight">Sri Sai Swagruha Foods</a>
+      <nav class="hidden md:flex gap-6 items-center">
+        <a href="/" class="text-[#5a413d] hover:text-[#800000] font-medium text-xs uppercase tracking-widest transition-colors">Home</a>
+        <a href="/cart" class="text-[#5a413d] hover:text-[#800000] font-medium text-xs uppercase tracking-widest transition-colors">Cart</a>
+      </nav>
+    </div>
+    <div class="flex items-center gap-2">
+      <a href="/cart" class="p-2 text-[#5a413d] hover:text-[#800000] transition-colors">
+        <span class="material-symbols-outlined">shopping_bag</span>
+      </a>
+      <button class="md:hidden p-2 text-[#5a413d]"
+              onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </div>
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-[#fbf9f8]/96 px-6 pb-4 border-t border-[#e2bfb9]/30">
+    <div class="flex flex-col gap-1 pt-2">
+      <a href="/" class="text-[#5a413d] text-sm uppercase tracking-widest py-2">Home</a>
+      <a href="/cart" class="text-[#5a413d] text-sm uppercase tracking-widest py-2">Cart</a>
+    </div>
+  </div>
+</header>
 
-        <a href="https://wa.me/918247336418?text=I%20have%20sent%20advance%20payment%20slip%20for%20booking"
-           target="_blank"
-           style="color:#800000; font-weight:bold; text-decoration:underline;">
-            8247336418
-        </a>.
-    </p>
+<main class="pt-28 pb-20 px-6 max-w-7xl mx-auto min-h-screen">
 
-    <p style="background:#e8f5e9; padding:10px 12px; border-radius:8px; font-size:20px; border-left:5px solid #2e7d32; margin-bottom:16px;">
-        <b style="color:#2e7d32;">UPI Payment:</b>
-        Send advance to UPI number <b style="color:#2e7d32;">8247336418</b>
-    </p>
+  <!-- Page Title -->
+  <div class="mb-10">
+    <h1 class="text-4xl md:text-5xl font-serif italic text-[#570000] leading-tight">Booking Details</h1>
+    <p class="font-sans text-[#705d00] text-sm tracking-widest uppercase mt-2">Fill in your details to confirm your order</p>
+  </div>
 
-   <form method="POST">
-        <div>
-            <label for="name">Full Name</label>
-            <input type="text" id="name" name="name" placeholder="Full Name" required>
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+
+    <!-- Booking Form -->
+    <div class="lg:col-span-7 space-y-6">
+
+      <!-- Important Note Card -->
+      <div class="bg-[#fff8e1] border-l-4 border-[#800000] rounded-xl px-6 py-5">
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#800000] mt-0.5" style="font-variation-settings: 'FILL' 1;">info</span>
+          <div>
+            <p class="font-sans font-bold text-[#570000] uppercase tracking-widest text-xs mb-1">Important Note</p>
+            <p class="font-sans text-[#1b1c1c] text-sm leading-relaxed">
+              Your order will be confirmed ONLY after sending 20% advance payment slip to WhatsApp number:
+              <a href="https://wa.me/918247336418" target="_blank" class="font-bold text-[#800000] underline">8247336418</a>.
+            </p>
+          </div>
         </div>
-        <div>
-            <label for="phone">Mobile Number</label>
-            <input type="text" id="phone" name="phone" placeholder="Mobile Number" required>
+      </div>
+
+      <!-- UPI Payment Card -->
+      <div class="bg-[#e8f5e9] border-l-4 border-[#2e7d32] rounded-xl px-6 py-5">
+        <div class="flex items-start gap-3">
+          <span class="material-symbols-outlined text-[#2e7d32] mt-0.5" style="font-variation-settings: 'FILL' 1;">payments</span>
+          <div>
+            <p class="font-sans font-bold text-[#2e7d32] uppercase tracking-widest text-xs mb-1">UPI Payment</p>
+            <p class="font-sans text-[#1b1c1c] text-sm leading-relaxed">
+              Send advance to UPI number <span class="font-bold text-[#2e7d32]">8247336418</span>
+            </p>
+          </div>
         </div>
-        <div>
-            <label for="address">Delivery Address</label>
-            <textarea id="address" name="address" placeholder="Delivery Address" required></textarea>
+      </div>
+
+      <!-- Form -->
+      <form method="POST" class="bg-white rounded-xl p-8 space-y-6 shadow-sm">
+        <input type="hidden" name="total" value="{{ total }}">
+        <input type="hidden" name="advance" value="{{ advance }}">
+
+        <div class="space-y-1">
+          <label for="name" class="block font-sans font-semibold text-xs uppercase tracking-widest text-[#5a413d]">Full Name</label>
+          <input type="text" id="name" name="name" placeholder="Enter your full name" required
+                 class="w-full border border-[#e2bfb9] rounded-lg px-4 py-3 text-sm font-sans text-[#1b1c1c] placeholder-[#8e706c] focus:outline-none focus:ring-2 focus:ring-[#800000]/30 focus:border-[#800000] transition"/>
         </div>
 
-        <p style="font-size:15px; color:#555; margin:4px 0 12px;">
-            <b style="color:#800000;">Expected delivery date is next day (Telangana)</b>
+        <div class="space-y-1">
+          <label for="phone" class="block font-sans font-semibold text-xs uppercase tracking-widest text-[#5a413d]">Mobile Number</label>
+          <input type="text" id="phone" name="phone" placeholder="Enter your mobile number" required
+                 class="w-full border border-[#e2bfb9] rounded-lg px-4 py-3 text-sm font-sans text-[#1b1c1c] placeholder-[#8e706c] focus:outline-none focus:ring-2 focus:ring-[#800000]/30 focus:border-[#800000] transition"/>
+        </div>
+
+        <div class="space-y-1">
+          <label for="address" class="block font-sans font-semibold text-xs uppercase tracking-widest text-[#5a413d]">Delivery Address</label>
+          <textarea id="address" name="address" placeholder="Enter your delivery address" required rows="3"
+                    class="w-full border border-[#e2bfb9] rounded-lg px-4 py-3 text-sm font-sans text-[#1b1c1c] placeholder-[#8e706c] focus:outline-none focus:ring-2 focus:ring-[#800000]/30 focus:border-[#800000] transition resize-none"></textarea>
+        </div>
+
+        <p class="font-sans text-xs text-[#5a413d]">
+          <span class="material-symbols-outlined text-base text-[#705d00]">local_shipping</span>
+          <span class="font-bold text-[#800000]">Expected delivery: next day</span> (within Telangana)
         </p>
 
-        <p style="font-size:16px;">
-            <b style="color:#800000;">Advance Payment Required: ₹{{ advance }}</b>
-        </p>
-
-        <button type="submit" 
-                style="background-color:#800000; 
-                       color:white; 
-                       padding:10px 20px; 
-                       border:none; 
-                       border-radius:6px; 
-                       font-size:16px; 
-                       cursor:pointer; 
-                       text-decoration:underline;">
-            Confirm Booking
+        <button type="submit"
+                class="w-full bg-[#570000] text-white py-4 rounded-xl font-sans font-bold uppercase tracking-[0.2em] text-sm shadow-lg shadow-[#570000]/20 hover:bg-[#800000] transition-all active:scale-[0.98]">
+          Confirm Booking
         </button>
-    </form>
-</div>
-{% endblock %}
+
+      </form>
+    </div>
+
+    <!-- Order Summary Sidebar -->
+    <aside class="lg:col-span-5 sticky top-28">
+      <div class="bg-[#f5f3f3] rounded-xl p-8 space-y-6">
+        <h2 class="text-2xl font-serif text-[#570000] border-b border-[#e2bfb9]/30 pb-4">Order Summary</h2>
+
+        <div class="space-y-3">
+          {% for item in cart %}
+          <div class="flex justify-between items-center font-sans text-sm">
+            <span class="text-[#1b1c1c]">{{ item.item }} <span class="text-[#8e706c]">× {{ item.qty }} kg</span></span>
+            <span class="font-semibold text-[#1b1c1c]">₹{{ item.qty * item.price }}</span>
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="border-t border-[#e2bfb9]/30 pt-4 space-y-3 font-sans text-sm">
+          <div class="flex justify-between text-[#5a413d]">
+            <span>Total Amount</span>
+            <span class="text-2xl font-serif font-bold text-[#570000]">₹{{ total }}</span>
+          </div>
+          <div class="flex justify-between text-[#5a413d]">
+            <span>20% Advance Required</span>
+            <span class="font-bold text-[#1b1c1c]">₹{{ advance }}</span>
+          </div>
+        </div>
+
+        <!-- Important Notice Card -->
+        <div class="border-t border-[#e2bfb9]/30 pt-6">
+          <div class="bg-[#fbf9f8] rounded-xl p-5 flex gap-4 items-start">
+            <div class="bg-[#570000] rounded-2xl p-3 flex-shrink-0">
+              <span class="material-symbols-outlined text-white text-2xl" style="font-variation-settings: 'FILL' 1, 'wght' 300;">auto_awesome</span>
+            </div>
+            <div>
+              <p class="font-sans font-bold text-[#570000] text-base mb-2">Important Notice</p>
+              <p class="font-sans text-[#3d2020] text-sm leading-relaxed">
+                Our confections are <strong>Artisanally Prepared</strong> upon order to ensure maximum freshness. Since each batch is handcrafted using premium ingredients like pure ghee and saffron, we require a <strong>20% Advance Payment</strong> to secure your slots in our daily preparation schedule. This ensures zero waste and the highest quality for every patron.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+  </div>
+
+</main>
+
+<!-- ── Minimal Footer ── -->
+<footer class="bg-[#f5f3f3] py-6 text-center border-t border-[#e2bfb9]/20">
+  <p class="text-[#5a413d] text-sm">
+    <span class="font-serif font-bold text-[#570000]">Sri Sai Swagruha Foods</span>
+    &nbsp;|&nbsp;
+    📞 <a href="https://wa.me/918247336418" class="hover:underline">8247336418</a>
+    &nbsp;|&nbsp;
+    <span class="text-xs text-[#8e706c]">Authentic Telugu Sweets &amp; Snacks</span>
+  </p>
+</footer>
+
+</body>
+</html>

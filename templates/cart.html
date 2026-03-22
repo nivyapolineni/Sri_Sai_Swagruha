@@ -1,26 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>Your Cart | Sri Sai Swagruha Foods</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "primary":                  "#570000",
+            "primary-container":        "#800000",
+            "on-primary":               "#ffffff",
+            "secondary":                "#705d00",
+            "secondary-container":      "#fdd835",
+            "on-secondary-container":   "#705e00",
+            "surface":                  "#fbf9f8",
+            "surface-container-low":    "#f5f3f3",
+            "surface-container-lowest": "#ffffff",
+            "surface-variant":          "#e4e2e2",
+            "on-surface":               "#1b1c1c",
+            "on-surface-variant":       "#5a413d",
+            "outline":                  "#8e706c",
+            "outline-variant":          "#e2bfb9",
+            "error":                    "#ba1a1a",
+          },
+          fontFamily: {
+            "serif": ["Noto Serif", "serif"],
+            "sans":  ["Plus Jakarta Sans", "sans-serif"],
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      vertical-align: middle;
+    }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fbf9f8; }
+    .glass-nav { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); }
+  </style>
+</head>
+<body class="text-[#1b1c1c]">
 
-{% extends "layout.html" %}
-{% block content %}
-<h2>Your Cart</h2>
+<!-- ── Fixed Header ── -->
+<header class="fixed top-0 w-full z-50 bg-[#fbf9f8]/80 glass-nav shadow-sm">
+  <div class="flex justify-between items-center px-6 md:px-10 py-4 max-w-7xl mx-auto">
+    <div class="flex items-center gap-8">
+      <a href="/" class="text-xl font-serif font-bold text-[#800000] tracking-tight">Sri Sai Swagruha Foods</a>
+      <nav class="hidden md:flex gap-6 items-center">
+        <a href="/" class="text-[#5a413d] hover:text-[#800000] font-medium text-xs uppercase tracking-widest transition-colors">Home</a>
+        <a href="/cart" class="text-[#800000] font-bold border-b-2 border-[#fdd835] pb-0.5 text-xs uppercase tracking-widest">Cart</a>
+      </nav>
+    </div>
+    <div class="flex items-center gap-2">
+      <a href="/cart" class="p-2 text-[#5a413d] hover:text-[#800000] transition-colors">
+        <span class="material-symbols-outlined">shopping_bag</span>
+      </a>
+      <button class="md:hidden p-2 text-[#5a413d]"
+              onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </div>
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-[#fbf9f8]/96 px-6 pb-4 border-t border-[#e2bfb9]/30">
+    <div class="flex flex-col gap-1 pt-2">
+      <a href="/" class="text-[#5a413d] text-sm uppercase tracking-widest py-2">Home</a>
+      <a href="/cart" class="text-[#800000] font-bold text-sm uppercase tracking-widest py-2">Cart</a>
+    </div>
+  </div>
+</header>
 
-<table>
-<tr><th>Item</th><th>Qty</th><th>Total</th><th>Action</th></tr>
-{% for item in cart %}
-<tr>
-<td>{{ item.item }}</td>
-<td>{{ item.qty }}</td>
-<td>₹{{ item.qty * item.price }}</td>
-<td><a href="/delete/{{ loop.index0 }}">Delete</a></td>
-</tr>
-{% endfor %}
-</table>
+<main class="pt-28 pb-20 px-6 max-w-7xl mx-auto min-h-screen">
 
-<h3>Grand Total: ₹{{ total }}</h3>
-<h3>20% Advance Payment: ₹{{ advance }}</h3>
+  <!-- Page Title -->
+  <div class="mb-12">
+    <h1 class="text-4xl md:text-5xl font-serif italic text-[#570000] leading-tight">Your Cart</h1>
+    <p class="font-sans text-[#705d00] text-sm tracking-widest uppercase mt-2">Review your selection before booking</p>
+  </div>
 
-<div class="buttons">
-<a href="/menu" class="btn">Continue Shopping</a>
-<a href="/booking" class="btn primary">Proceed to Booking</a>
-</div>
+  {% if cart %}
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
 
-{% endblock %}
+    <!-- Cart Items -->
+    <div class="lg:col-span-8 space-y-8">
+
+      <!-- Freshness Banner -->
+      <div class="bg-[#570000]/5 px-6 py-4 rounded-xl flex items-center gap-4 text-[#570000]">
+        <span class="material-symbols-outlined">verified</span>
+        <span class="font-sans font-semibold text-sm tracking-wide">FRESHNESS GUARANTEE: HANDMADE TO ORDER, PURE &amp; TRADITIONAL.</span>
+      </div>
+
+      <!-- Item List -->
+      <div class="space-y-4">
+        {% for item in cart %}
+        <div class="bg-white rounded-xl p-6 flex flex-col md:flex-row gap-6">
+          <div class="flex-grow flex flex-col justify-between py-1">
+            <div>
+              <div class="flex justify-between items-start">
+                <h3 class="text-xl font-serif text-[#570000]">{{ item.item }}</h3>
+                <span class="text-lg font-serif font-bold item-total">₹{{ item.qty * item.price }}</span>
+              </div>
+              <p class="text-[#5a413d] text-sm mt-1">₹{{ item.price }}/kg</p>
+            </div>
+            <div class="flex items-center justify-between mt-6">
+              <!-- Quantity controls -->
+              <form method="POST" action="/update/{{ loop.index0 }}" class="flex items-center gap-2">
+                <button type="button"
+                        onclick="stepQty(this, -1)"
+                        class="w-8 h-8 rounded-full border border-[#e2bfb9] flex items-center justify-center text-[#570000] hover:bg-[#570000] hover:text-white transition-colors font-bold text-lg leading-none">−</button>
+                <input type="number" name="qty" value="{{ item.qty }}" min="1" max="99"
+                       class="w-14 text-center border border-[#e2bfb9] rounded-lg py-1 text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-[#800000]/30 focus:border-[#800000]"
+                       onchange="this.form.submit()"/>
+                <button type="button"
+                        onclick="stepQty(this, 1)"
+                        class="w-8 h-8 rounded-full border border-[#e2bfb9] flex items-center justify-center text-[#570000] hover:bg-[#570000] hover:text-white transition-colors font-bold text-lg leading-none">+</button>
+              </form>
+              <a href="/delete/{{ loop.index0 }}"
+                 class="text-[#5a413d] hover:text-[#ba1a1a] flex items-center gap-1 text-xs font-bold uppercase tracking-widest transition-colors">
+                <span class="material-symbols-outlined text-lg">delete</span>
+                Remove
+              </a>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <script>
+        function stepQty(btn, delta) {
+          const input = btn.parentElement.querySelector('input[name="qty"]');
+          const newVal = Math.max(1, Math.min(99, parseInt(input.value || 1) + delta));
+          input.value = newVal;
+          input.form.submit();
+        }
+      </script>
+
+      <!-- Continue Shopping -->
+      <div class="pt-8 border-t border-[#e2bfb9]/15">
+        <a href="/"
+           class="flex items-center gap-2 text-[#570000] font-sans font-bold uppercase tracking-widest text-sm hover:translate-x-1 transition-transform w-fit">
+          <span class="material-symbols-outlined">arrow_back</span>
+          Continue Shopping
+        </a>
+      </div>
+    </div>
+
+    <!-- Order Summary Sidebar -->
+    <aside class="lg:col-span-4 sticky top-28">
+      <div class="bg-[#f5f3f3] rounded-xl p-8 space-y-6">
+        <h2 class="text-2xl font-serif text-[#570000] border-b border-[#e2bfb9]/15 pb-4">Order Summary</h2>
+
+        <div class="space-y-4 font-sans text-sm">
+          <div class="flex justify-between text-[#5a413d]">
+            <span>Subtotal ({{ cart|length }} item{{ 's' if cart|length != 1 else '' }})</span>
+            <span class="font-semibold text-[#1b1c1c] tracking-wide">₹{{ total }}</span>
+          </div>
+          <div class="pt-4 mt-2 border-t border-[#e2bfb9]/15 flex justify-between items-end">
+            <span class="text-[#570000] font-bold uppercase tracking-widest">Total Amount</span>
+            <span class="text-2xl font-serif font-bold text-[#570000]">₹{{ total }}</span>
+          </div>
+          <div class="flex justify-between text-[#5a413d]">
+            <span>20% Advance Required</span>
+            <span class="font-semibold text-[#1b1c1c] tracking-wide">₹{{ advance }}</span>
+          </div>
+        </div>
+
+        <div class="pt-4">
+          <a href="/booking"
+             class="block w-full bg-[#570000] text-white text-center py-4 rounded-xl font-sans font-bold uppercase tracking-[0.2em] shadow-lg shadow-[#570000]/10 hover:bg-[#800000] transition-all active:scale-[0.98]">
+            Proceed to Booking
+          </a>
+        </div>
+
+        <div class="flex flex-col gap-4 mt-4 pt-6 border-t border-[#e2bfb9]/15">
+          <div class="flex items-center gap-3 text-[#5a413d] text-xs font-medium">
+            <span class="material-symbols-outlined text-[#705d00]" style="font-variation-settings: 'FILL' 1;">local_shipping</span>
+            Standard delivery in 1–2 business days
+          </div>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  {% else %}
+  <!-- Empty Cart -->
+  <div class="text-center py-24">
+    <span class="material-symbols-outlined text-6xl text-[#e2bfb9] block mb-6">shopping_bag</span>
+    <h2 class="font-serif text-2xl text-[#570000] mb-3">Your cart is empty</h2>
+    <p class="text-[#5a413d] text-sm mb-8">Explore our collection and add your favourites.</p>
+    <a href="/"
+       class="inline-block bg-[#570000] text-white px-8 py-3.5 rounded-xl text-sm font-semibold uppercase tracking-widest hover:bg-[#800000] transition-colors shadow-lg shadow-[#570000]/20">
+      Browse Menu
+    </a>
+  </div>
+  {% endif %}
+
+</main>
+
+<!-- ── Minimal Footer ── -->
+<footer class="bg-[#f5f3f3] py-6 text-center border-t border-[#e2bfb9]/20">
+  <p class="text-[#5a413d] text-sm">
+    <span class="font-serif font-bold text-[#570000]">Sri Sai Swagruha Foods</span>
+    &nbsp;|&nbsp;
+    📞 <a href="https://wa.me/918247336418" class="hover:underline">8247336418</a>
+    &nbsp;|&nbsp;
+    <span class="text-xs text-[#8e706c]">Authentic Telugu Sweets &amp; Snacks</span>
+  </p>
+</footer>
+
+</body>
+</html>
